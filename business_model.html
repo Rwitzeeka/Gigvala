@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GIGvala - Business Model</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            color: white;
+            min-height: 100vh;
+            padding: 2rem 0;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #8b5cf6, #a855f7, #c084fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .pricing-card {
+            background: rgba(139, 92, 246, 0.1);
+            border: 2px solid rgba(139, 92, 246, 0.3);
+            border-radius: 20px;
+            padding: 2.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(139, 92, 246, 0.3);
+            border-color: #8b5cf6;
+        }
+
+        .pricing-card.popular {
+            border-color: #8b5cf6;
+            background: rgba(139, 92, 246, 0.15);
+            transform: scale(1.05);
+        }
+
+        .pricing-card.popular::before {
+            content: "MOST POPULAR";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(45deg, #8b5cf6, #a855f7);
+            color: white;
+            padding: 0.5rem;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        .pricing-card.premium {
+            border-color: #f59e0b;
+            background: rgba(245, 158, 11, 0.1);
+        }
+
+        .pricing-card.premium .plan-name {
+            color: #f59e0b;
+        }
+
+        .plan-name {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: #8b5cf6;
+        }
+
+        .plan-price {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #a855f7;
+        }
+
+        .plan-price .currency {
+            font-size: 1.5rem;
+            vertical-align: top;
+        }
+
+        .plan-duration {
+            font-size: 1rem;
+            opacity: 0.8;
+            margin-bottom: 2rem;
+        }
+
+        .features-list {
+            list-style: none;
+            text-align: left;
+            margin-bottom: 2rem;
+        }
+
+        .features-list li {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid rgba(139, 92, 246, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .features-list li:last-child {
+            border-bottom: none;
+        }
+
+        .check-icon {
+            color: #10b981;
+            font-size: 1.2rem;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .premium-feature {
+            background: rgba(245, 158, 11, 0.1);
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 0.5rem 0;
+            border-left: 4px solid #f59e0b;
+        }
+
+        .premium-feature .feature-title {
+            font-weight: bold;
+            color: #f59e0b;
+            margin-bottom: 0.3rem;
+        }
+
+        .premium-feature .feature-desc {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            width: 100%;
+            padding: 1rem 2rem;
+            background: linear-gradient(45deg, #8b5cf6, #a855f7);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(139, 92, 246, 0.4);
+        }
+
+        .cta-button.premium {
+            background: linear-gradient(45deg, #f59e0b, #f97316);
+        }
+
+        .revenue-model {
+            margin-top: 5rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 20px;
+            padding: 3rem;
+            text-align: center;
+        }
+
+        .revenue-model h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: #8b5cf6;
+        }
+
+        .revenue-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .stat-item {
+            background: rgba(139, 92, 246, 0.1);
+            border-radius: 15px;
+            padding: 2rem;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #a855f7;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        @media (max-width: 768px) {
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-card.popular {
+                transform: scale(1);
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .revenue-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .highlight-text {
+            background: linear-gradient(45deg, #8b5cf6, #a855f7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Business Model</h1>
+            <p>Revolutionizing freelancing with blockchain-verified skills and NFT certificates. Choose the plan that
+                fits your needs.</p>
+        </div>
+
+        <div class="pricing-grid">
+            <!-- Basic Plan -->
+            <div class="pricing-card">
+                <div class="plan-name">Basic</div>
+                <div class="plan-price">
+                    <span class="currency">₹</span>0
+                </div>
+                <div class="plan-duration">Free Forever</div>
+
+                <ul class="features-list">
+                    <li>
+                        <span class="check-icon">✓</span>
+                        <div>
+                            <strong>3 Skill Tests per Month</strong><br>
+                            <small>Limited monthly skill verification challenges</small>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="check-icon">✓</span>
+                        <div>
+                            <strong>NFT Minting</strong><br>
+                            <small>Basic NFT certificates for completed projects</small>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="check-icon">✓</span>
+                        <div>
+                            <strong>Digital Portfolio</strong><br>
+                            <small>Showcase your NFT work certificates</small>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="check-icon">✓</span>
+                        <div>
+                            <strong>Basic Project Search</strong><br>
+                            <small>Access to standard project listings</small>
+                        </div>
+                    </li>
+                </ul>
+
+                <button class="cta-button">Get Started Free</button>
+            </div>
+
+            <!-- Pro Plan -->
+            <div class="pricing-card popular">
+                <div class="plan-name">Pro</div>
+                <div class="plan-price">
+                    <span class="currency">₹</span>299
+                </div>
+                <div class="plan-duration">per month</div>
+
+                <ul class="features-list">
+                    <li>
+                        <span class="check-icon">✓</span>
+                        <div>
+                            <strong>Unlimited Skill Tests</strong><br>
+                            <small>Take as many skill challenges as you need</small>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="check-icon">✓</span>
+                        <div>
+                            <strong>Advanced NFT Minting</strong><br>
+                            <small>Enhanced NFT certificates with metadata</small>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="check-icon">✓</span>
+                        <div>
+                            <strong>Dashboard Performance Analytics</strong><br>
+                            <small>Track your success rate and skill progress</small>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="check-icon">✓</span>
+                        <div>
+                            <strong>Priority Communication</strong><br>
+                            <small>Fast response times = more projects won</small>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="check-icon">✓</span>
+                        <div>
+                            <strong>Advanced Portfolio</strong><br>
+                            <small>Detailed showcase with project insights</small>
+                        </div>
+                    </li>
+                </ul>
+
+                <button class="cta-button">Choose Pro</button>
+            </div>
+
+            <!-- Enterprise Plan -->
+            <div class="pricing-card premium">
+                <div class="plan-name">Enterprise</div>
+                <div class="plan-price">
+                    <span class="currency">₹</span>999
+                </div>
+                <div class="plan-duration">per month</div>
+
+                <ul class="features-list">
+                    <li>
+                        <span class="check-icon">✓</span>
+                        <div><strong>Everything in Pro</strong></div>
+                    </li>
+                    <li>
+                        <span class="check-icon">✓</span>
+                        <div>
+                            <strong>Premium Support</strong><br>
+                            <small>24/7 dedicated customer support</small>
+                        </div>
+                    </li>
+                </ul>
+
+                <div class="premium-feature">
+                    <div class="feature-title">🏆 NFT Clarity System</div>
+                    <div class="feature-desc">
+                        <span class="highlight-text">Gamified NFT Values!</span> Project difficulty and complexity
+                        determine NFT rarity and value. Harder projects = more valuable NFTs = better reputation.
+                    </div>
+                </div>
+
+                <div class="premium-feature">
+                    <div class="feature-title">🤖 AI-Powered Project Matching</div>
+                    <div class="feature-desc">
+                        <span class="highlight-text">Smart Job Matching!</span> Our AI analyzes your skills and
+                        automatically matches you with perfect projects. No more endless searching - save time and win
+                        more projects.
+                    </div>
+                </div>
+
+                <button class="cta-button premium">Go Enterprise</button>
+            </div>
+        </div>
+
+        <div class="revenue-model">
+            <h2>Revenue Model & Market Potential</h2>
+            <p>Subscription-based model targeting the <strong>$400 billion</strong> global freelancing market</p>
+
+            <div class="revenue-stats">
+                <div class="stat-item">
+                    <div class="stat-number">10K+</div>
+                    <div class="stat-label">Target Freelancers by Year 1</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">₹30L</div>
+                    <div class="stat-label">Monthly Revenue Target</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">40%</div>
+                    <div class="stat-label">Expected Pro Plan Adoption</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">15%</div>
+                    <div class="stat-label">Enterprise Plan Adoption</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GIGvala - Client Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            color: white;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: rgba(0, 0, 0, 0.9);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(139, 92, 246, 0.3);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #8b5cf6;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .dashboard-title {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: #8b5cf6;
+        }
+
+        .project-card {
+            background: rgba(139, 92, 246, 0.1);
+            border: 2px solid rgba(139, 92, 246, 0.3);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+        }
+
+        .project-title {
+            font-size: 1.8rem;
+            color: #a855f7;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-status {
+            background: #10b981;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        .freelancer-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .freelancer-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #8b5cf6, #a855f7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .work-preview {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .work-preview h3 {
+            color: #8b5cf6;
+            margin-bottom: 1rem;
+        }
+
+        .deliverables {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .deliverable-item {
+            background: rgba(139, 92, 246, 0.2);
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .rating-section {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stars {
+            display: flex;
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+
+        .star {
+            font-size: 2rem;
+            color: #6b7280;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .star.active {
+            color: #fbbf24;
+        }
+
+        .star:hover {
+            color: #fbbf24;
+        }
+
+        .review-input {
+            width: 100%;
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 8px;
+            padding: 1rem;
+            color: white;
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #8b5cf6, #a855f7);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(139, 92, 246, 0.3);
+        }
+
+        .btn-secondary {
+            background: rgba(239, 68, 68, 0.8);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(239, 68, 68, 1);
+        }
+
+        .nft-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            border: 2px solid #8b5cf6;
+        }
+
+        .nft-preview {
+            background: linear-gradient(45deg, #8b5cf6, #a855f7);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 1rem 0;
+            transform: perspective(1000px) rotateY(0deg);
+            transition: transform 0.5s ease;
+        }
+
+        .nft-preview:hover {
+            transform: perspective(1000px) rotateY(5deg);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(139, 92, 246, 0.2);
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(45deg, #8b5cf6, #a855f7);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .success-animation {
+            font-size: 4rem;
+            animation: bounce 0.6s ease-in-out;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.2);
+            }
+        }
+
+        .blockchain-info {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 1rem;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .project-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div class="logo">GIGvala</div>
+        <div class="user-info">
+            <span>Welcome, Ritika Sharma</span>
+            <div class="freelancer-avatar">RS</div>
+        </div>
+    </div>
+
+    <div class="container">
+        <h1 class="dashboard-title">Project Completion Review</h1>
+
+        <div class="project-card">
+            <div class="project-header">
+                <div>
+                    <h2 class="project-title">E-commerce Website Development</h2>
+                    <p>Project ID: #GIG-2024-001</p>
+                </div>
+                <div class="project-status">✅ COMPLETED</div>
+            </div>
+
+            <div class="freelancer-info">
+                <div class="freelancer-avatar">PK</div>
+                <div>
+                    <h3>Pankaj Kumar</h3>
+                    <p>Full Stack Developer • ⭐ 4.9/5 • 47 projects completed</p>
+                </div>
+            </div>
+
+            <div class="work-preview">
+                <h3>📋 Project Deliverables</h3>
+                <div class="deliverables">
+                    <div class="deliverable-item">
+                        <strong>Frontend</strong><br>
+                        React.js Application
+                    </div>
+                    <div class="deliverable-item">
+                        <strong>Backend</strong><br>
+                        Node.js API
+                    </div>
+                    <div class="deliverable-item">
+                        <strong>Database</strong><br>
+                        MongoDB Setup
+                    </div>
+                    <div class="deliverable-item">
+                        <strong>Deployment</strong><br>
+                        AWS Hosting
+                    </div>
+                </div>
+                <p><strong>Duration:</strong> 3 weeks • <strong>Technologies:</strong> React, Node.js, MongoDB, AWS</p>
+                <p><strong>Final Notes:</strong> "All requirements met successfully. Added extra features for user
+                    authentication and admin panel as discussed."</p>
+            </div>
+
+            <div class="rating-section">
+                <h3>🌟 Rate This Project</h3>
+                <div class="stars">
+                    <span class="star" data-rating="1">★</span>
+                    <span class="star" data-rating="2">★</span>
+                    <span class="star" data-rating="3">★</span>
+                    <span class="star" data-rating="4">★</span>
+                    <span class="star" data-rating="5">★</span>
+                </div>
+                <textarea class="review-input" placeholder="Write your review for Pankaj's work..."></textarea>
+            </div>
+
+            <div class="action-buttons">
+                <button class="btn btn-primary" onclick="mintNFT()">
+                    🏆 Approve NFT Certificate
+                </button>
+                <button class="btn btn-secondary" onclick="requestRevision()">
+                    🔄 Request Revision
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- NFT Minting Modal -->
+    <div class="nft-modal" id="nftModal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal()">&times;</button>
+            <div id="mintingContent">
+                <h2>🏆 Approving NFT Certificate</h2>
+                <p>Creating blockchain certificate for Pankaj completed work...</p>
+
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+
+                <div id="mintingSteps">
+                    <p id="currentStep">Preparing transaction...</p>
+                </div>
+
+                <div class="nft-preview">
+                    <h3>Work Experience NFT</h3>
+                    <p><strong>Project:</strong> E-commerce Website</p>
+                    <p><strong>Freelancer:</strong> Pankaj Kumar</p>
+                    <p><strong>Client:</strong> TechCorp Ltd</p>
+                    <p><strong>Completed:</strong> December 2024</p>
+                    <p><strong>Rating:</strong> <span id="finalRating">⭐⭐⭐⭐⭐</span></p>
+                </div>
+            </div>
+
+            <div id="successContent" style="display: none;">
+                <div class="success-animation">🎉</div>
+                <h2>NFT Certificate Approved Successfully!</h2>
+                <p>Pankaj now has a permanent blockchain certificate for this project</p>
+
+                <div class="blockchain-info">
+                    <p><strong>Transaction Hash:</strong> 0x7d2e...8f9a</p>
+                    <p><strong>Network:</strong> Ethereum Mainnet</p>
+                    <p><strong>NFT ID:</strong> #GIG-001</p>
+                </div>
+
+                <button class="btn btn-primary" onclick="closeModal()">
+                    Done
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentRating = 5;
+
+        // Star rating system
+        document.querySelectorAll('.star').forEach(star => {
+            star.addEventListener('click', function () {
+                currentRating = parseInt(this.dataset.rating);
+                updateStars();
+            });
+
+            star.addEventListener('mouseover', function () {
+                const rating = parseInt(this.dataset.rating);
+                highlightStars(rating);
+            });
+        });
+
+        document.querySelector('.stars').addEventListener('mouseleave', function () {
+            updateStars();
+        });
+
+        function updateStars() {
+            document.querySelectorAll('.star').forEach((star, index) => {
+                if (index < currentRating) {
+                    star.classList.add('active');
+                } else {
+                    star.classList.remove('active');
+                }
+            });
+        }
+
+        function highlightStars(rating) {
+            document.querySelectorAll('.star').forEach((star, index) => {
+                if (index < rating) {
+                    star.classList.add('active');
+                } else {
+                    star.classList.remove('active');
+                }
+            });
+        }
+
+        // Initialize stars
+        updateStars();
+
+        // NFT Minting Process
+        function mintNFT() {
+            document.getElementById('nftModal').style.display = 'flex';
+            document.getElementById('finalRating').textContent = '⭐'.repeat(currentRating);
+
+            // Simulate minting process
+            const steps = [
+                'Preparing transaction...',
+                'Connecting to blockchain...',
+                'Creating NFT metadata...',
+                'approving certificate...',
+                'Confirming transaction...'
+            ];
+
+            let currentStep = 0;
+            const stepElement = document.getElementById('currentStep');
+            const progressFill = document.getElementById('progressFill');
+
+            const interval = setInterval(() => {
+                if (currentStep < steps.length) {
+                    stepElement.textContent = steps[currentStep];
+                    progressFill.style.width = ((currentStep + 1) / steps.length) * 100 + '%';
+                    currentStep++;
+                } else {
+                    clearInterval(interval);
+                    // Show success
+                    setTimeout(() => {
+                        document.getElementById('mintingContent').style.display = 'none';
+                        document.getElementById('successContent').style.display = 'block';
+                    }, 1000);
+                }
+            }, 1500);
+        }
+
+        function closeModal() {
+            document.getElementById('nftModal').style.display = 'none';
+            document.getElementById('mintingContent').style.display = 'block';
+            document.getElementById('successContent').style.display = 'none';
+            document.getElementById('progressFill').style.width = '0%';
+        }
+
+        function requestRevision() {
+            alert('Revision request sent to Pankaj Kumar. He will be notified to make the requested changes.');
+        }
+    </script>
+</body>
+
+</html>

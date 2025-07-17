@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GIGvala - Freelancer Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            color: white;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(139, 92, 246, 0.3);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #8b5cf6, #a855f7, #c084fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #8b5cf6, #a855f7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .welcome-section {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .welcome-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #8b5cf6, #a855f7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .welcome-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+
+        .search-section {
+            background: rgba(139, 92, 246, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            border: 2px solid rgba(139, 92, 246, 0.3);
+        }
+
+        .search-bar {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.3);
+            border: 2px solid rgba(139, 92, 246, 0.3);
+            border-radius: 50px;
+            color: white;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #8b5cf6;
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+        }
+
+        .search-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .search-btn {
+            padding: 1rem 2rem;
+            background: linear-gradient(45deg, #8b5cf6, #a855f7);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .search-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(139, 92, 246, 0.4);
+        }
+
+        .category-filters {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .category-btn {
+            padding: 0.8rem 1.5rem;
+            background: rgba(0, 0, 0, 0.3);
+            border: 2px solid rgba(139, 92, 246, 0.3);
+            border-radius: 50px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .category-btn:hover,
+        .category-btn.active {
+            border-color: #8b5cf6;
+            background: rgba(139, 92, 246, 0.2);
+            box-shadow: 0 5px 15px rgba(139, 92, 246, 0.3);
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .project-card {
+            background: rgba(139, 92, 246, 0.1);
+            border: 2px solid rgba(139, 92, 246, 0.3);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(139, 92, 246, 0.3);
+            border-color: #8b5cf6;
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .project-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #c084fc;
+            margin-bottom: 0.5rem;
+        }
+
+        .nft-value {
+            background: linear-gradient(45deg, #f59e0b, #f97316);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .client-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .client-avatar {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #10b981, #059669);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .client-details h4 {
+            color: #10b981;
+            margin-bottom: 0.2rem;
+        }
+
+        .client-details p {
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+
+        .project-meta {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .meta-icon {
+            color: #8b5cf6;
+        }
+
+        .skills-needed {
+            margin-bottom: 1rem;
+        }
+
+        .skills-needed h4 {
+            color: #c084fc;
+            margin-bottom: 0.5rem;
+        }
+
+        .skills-list {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .skill-tag {
+            background: rgba(139, 92, 246, 0.2);
+            color: #c084fc;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+        }
+
+        .project-description {
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+
+        .apply-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(45deg, #8b5cf6, #a855f7);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .apply-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(139, 92, 246, 0.4);
+        }
+
+        .stats-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-card {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #a855f7;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            opacity: 0.8;
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(45deg, #10b981, #059669);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .no-projects {
+            text-align: center;
+            padding: 3rem;
+            opacity: 0.7;
+        }
+
+        .no-projects h3 {
+            color: #c084fc;
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .search-bar {
+                flex-direction: column;
+            }
+
+            .category-filters {
+                justify-content: flex-start;
+            }
+
+            .project-meta {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .container {
+                padding: 1rem;
+            }
+
+            .welcome-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div class="logo">GIGvala</div>
+        <div class="user-info">
+            <div class="user-avatar" id="userAvatar">A</div>
+            <div>
+                <div id="userName">Alex Johnson</div>
+                <div style="font-size: 0.9rem; opacity: 0.8;">Freelancer</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="welcome-section">
+            <h1 class="welcome-title">Welcome Back, Freelancer!</h1>
+            <p class="welcome-subtitle">Find amazing projects and grow your blockchain-verified portfolio</p>
+        </div>
+
+        <div class="stats-section">
+            <div class="stat-card">
+                <div class="stat-number">5</div>
+                <div class="stat-label">NFTs Earned</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">12</div>
+                <div class="stat-label">Projects Completed</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">4.8</div>
+                <div class="stat-label">Average Rating</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">₹45,000</div>
+                <div class="stat-label">Total Earnings</div>
+            </div>
+        </div>
+
+        <div class="search-section">
+            <div class="search-bar">
+                <input type="text" class="search-input" placeholder="Search for projects..." id="searchInput">
+                <button class="search-btn" onclick="searchProjects()">Search Projects</button>
+            </div>
+
+            <div class="category-filters">
+                <button class="category-btn active" onclick="filterCategory('all')">All Projects</button>
+                <button class="category-btn" onclick="filterCategory('content-writing')">Content Writing</button>
+                <button class="category-btn" onclick="filterCategory('fullstack')">Full-Stack Development</button>
+                <button class="category-btn" onclick="filterCategory('uiux')">UI/UX Design</button>
+                <button class="category-btn" onclick="filterCategory('blockchain')">Blockchain</button>
+                <button class="category-btn" onclick="filterCategory('mobile')">Mobile Development</button>
+            </div>
+        </div>
+
+        <div class="projects-grid" id="projectsGrid">
+            <!-- Projects will be populated by JavaScript -->
+        </div>
+    </div>
+
+    <div class="notification" id="notification">
+        <span id="notificationText"></span>
+    </div>
+
+    <script>
+        // Sample projects data
+        const projects = [
+            {
+                id: 1,
+                title: "E-commerce Website Development",
+                client: "Tech Solutions Inc.",
+                company: "Tech Solutions Inc.",
+                duration: "2 months",
+                nftValue: "500 GIG",
+                skills: ["React", "Node.js", "MongoDB", "Payment Integration"],
+                description: "Build a complete e-commerce platform with user authentication, product catalog, shopping cart, and secure payment processing. Looking for experienced full-stack developer.",
+                category: "fullstack",
+                clientAvatar: "T"
+            },
+            {
+                id: 2,
+                title: "Mobile App UI/UX Design",
+                client: "StartupXYZ",
+                company: "StartupXYZ",
+                duration: "1 month",
+                nftValue: "300 GIG",
+                skills: ["Figma", "Adobe XD", "Prototyping", "User Research"],
+                description: "Design a modern and intuitive mobile app interface for a fitness tracking application with wireframes and prototypes. Must have experience with health app design.",
+                category: "uiux",
+                clientAvatar: "S"
+            },
+            {
+                id: 3,
+                title: "Blog Content Writing",
+                client: "Digital Marketing Pro",
+                company: "Digital Marketing Pro",
+                duration: "3 weeks",
+                nftValue: "200 GIG",
+                skills: ["SEO Writing", "Research", "WordPress", "Content Strategy"],
+                description: "Create engaging blog posts about technology trends, SEO-optimized content, and social media marketing strategies. Need 10 articles of 1500+ words each.",
+                category: "content-writing",
+                clientAvatar: "D"
+            },
+            {
+                id: 4,
+                title: "Full-Stack Web Application",
+                client: "InnovateCorp",
+                company: "InnovateCorp",
+                duration: "3 months",
+                nftValue: "800 GIG",
+                skills: ["Vue.js", "Python", "PostgreSQL", "AWS"],
+                description: "Develop a comprehensive project management tool with real-time collaboration features, file sharing, and analytics dashboard. Must have experience with real-time applications.",
+                category: "fullstack",
+                clientAvatar: "I"
+            },
+            {
+                id: 5,
+                title: "Brand Identity Design",
+                client: "Creative Agency",
+                company: "Creative Agency",
+                duration: "1.5 months",
+                nftValue: "400 GIG",
+                skills: ["Logo Design", "Brand Strategy", "Adobe Creative Suite", "Typography"],
+                description: "Create a complete brand identity including logo, color palette, typography, and brand guidelines for a new fintech startup. Portfolio of fintech designs preferred.",
+                category: "uiux",
+                clientAvatar: "C"
+            },
+            {
+                id: 6,
+                title: "Technical Documentation",
+                client: "SoftwareDev Ltd",
+                company: "SoftwareDev Ltd",
+                duration: "2 weeks",
+                nftValue: "150 GIG",
+                skills: ["Technical Writing", "API Documentation", "Markdown", "GitHub"],
+                description: "Write comprehensive technical documentation for REST APIs, including usage examples and integration guides. Experience with API documentation tools required.",
+                category: "content-writing",
+                clientAvatar: "S"
+            },
+            {
+                id: 7,
+                title: "Smart Contract Development",
+                client: "BlockchainTech",
+                company: "BlockchainTech",
+                duration: "2 months",
+                nftValue: "700 GIG",
+                skills: ["Solidity", "Web3.js", "Ethereum", "Smart Contracts"],
+                description: "Develop and deploy smart contracts for a decentralized marketplace. Experience with DeFi protocols and security audits preferred.",
+                category: "blockchain",
+                clientAvatar: "B"
+            },
+            {
+                id: 8,
+                title: "React Native Mobile App",
+                client: "MobileFirst",
+                company: "MobileFirst",
+                duration: "2.5 months",
+                nftValue: "600 GIG",
+                skills: ["React Native", "Firebase", "Redux", "Push Notifications"],
+                description: "Build a cross-platform mobile app for food delivery with real-time tracking, payments, and user reviews. Must have published apps on both stores.",
+                category: "mobile",
+                clientAvatar: "M"
+            }
+        ];
+
+        let currentFilter = 'all';
+        let currentSearchTerm = '';
+
+        // Load user data
+        document.addEventListener('DOMContentLoaded', function () {
+            const savedUserName = localStorage.getItem('userName');
+            const savedUserEmail = localStorage.getItem('userEmail');
+
+            if (savedUserName) {
+                document.getElementById('userName').textContent = savedUserName;
+                document.getElementById('userAvatar').textContent = savedUserName.charAt(0).toUpperCase();
+            }
+
+            displayProjects(projects);
+        });
+
+        // Display projects
+        function displayProjects(projectsToShow) {
+            const projectsGrid = document.getElementById('projectsGrid');
+
+            if (projectsToShow.length === 0) {
+                projectsGrid.innerHTML = `
+                    <div class="no-projects">
+                        <h3>No projects found</h3>
+                        <p>Try adjusting your search criteria or check back later for new opportunities.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            projectsGrid.innerHTML = '';
+
+            projectsToShow.forEach(project => {
+                const projectCard = document.createElement('div');
+                projectCard.className = 'project-card';
+
+                projectCard.innerHTML = `
+                    <div class="project-header">
+                        <div class="project-title">${project.title}</div>
+                        <div class="nft-value">${project.nftValue}</div>
+                    </div>
+                    
+                    <div class="client-info">
+                        <div class="client-avatar">${project.clientAvatar}</div>
+                        <div class="client-details">
+                            <h4>${project.client}</h4>
+                            <p>${project.company}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="project-meta">
+                        <div class="meta-item">
+                            <span class="meta-icon">⏱️</span>
+                            <span>${project.duration}</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-icon">💎</span>
+                            <span>${project.nftValue}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="skills-needed">
+                        <h4>Skills Needed:</h4>
+                        <div class="skills-list">
+                            ${project.skills.map(skill => `<span class="skill-tag">${skill}</span>`).join('')}
+                        </div>
+                    </div>
+                    
+                    <div class="project-description">
+                        ${project.description}
+                    </div>
+                    
+                    <button class="apply-btn" onclick="applyToProject(${project.id})">
+                        Apply for Project
+                    </button>
+                `;
+
+                projectsGrid.appendChild(projectCard);
+            });
+        }
+
+        // Filter projects by category
+        function filterCategory(category) {
+            currentFilter = category;
+
+            // Update active button
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // Filter and display projects
+            const filteredProjects = filterProjects();
+            displayProjects(filteredProjects);
+        }
+
+        // Search projects
+        function searchProjects() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            currentSearchTerm = searchTerm;
+
+            const filteredProjects = filterProjects();
+            displayProjects(filteredProjects);
+        }
+
+        // Combined filter function
+        function filterProjects() {
+            let filteredProjects = projects;
+
+            // Filter by category
+            if (currentFilter !== 'all') {
+                filteredProjects = filteredProjects.filter(project =>
+                    project.category === currentFilter
+                );
+            }
+
+            // Filter by search term
+            if (currentSearchTerm) {
+                filteredProjects = filteredProjects.filter(project =>
+                    project.title.toLowerCase().includes(currentSearchTerm) ||
+                    project.description.toLowerCase().includes(currentSearchTerm) ||
+                    project.skills.some(skill => skill.toLowerCase().includes(currentSearchTerm)) ||
+                    project.client.toLowerCase().includes(currentSearchTerm)
+                );
+            }
+
+            return filteredProjects;
+        }
+
+        // Apply to project
+        function applyToProject(projectId) {
+            const project = projects.find(p => p.id === projectId);
+            if (project) {
+                showNotification(`Successfully applied to "${project.title}"! The client will review your application.`);
+
+                // Simulate application submission
+                setTimeout(() => {
+                    console.log(`Application submitted for project: ${project.title}`);
+                }, 1000);
+            }
+        }
+
+        // Show notification
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            const notificationText = document.getElementById('notificationText');
+
+            notificationText.textContent = message;
+            notification.classList.add('show');
+
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 4000);
+        }
+
+        // Add enter key support for search
+        document.getElementById('searchInput').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                searchProjects();
+            }
+        });
+
+        // Real-time search as user types
+        document.getElementById('searchInput').addEventListener('input', function () {
+            const searchTerm = this.value.toLowerCase();
+            currentSearchTerm = searchTerm;
+
+            // Debounce the search to avoid too many updates
+            clearTimeout(window.searchTimeout);
+            window.searchTimeout = setTimeout(() => {
+                const filteredProjects = filterProjects();
+                displayProjects(filteredProjects);
+            }, 300);
+        });
+    </script>
+
+    <script>
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "firebase/app";
+        import { getAnalytics } from "firebase/analytics";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+            apiKey: "AIzaSyDaw0G4hT0vr83vyba9RZ7BjC6uLdzTgBU",
+            authDomain: "gigvala-61a69.firebaseapp.com",
+            projectId: "gigvala-61a69",
+            storageBucket: "gigvala-61a69.firebasestorage.app",
+            messagingSenderId: "542428323319",
+            appId: "1:542428323319:web:bd82298384be88a16262f2",
+            measurementId: "G-VBQE5SZTWN"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+    </script>
+
+</body>
+
+
+</html>

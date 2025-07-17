@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GIGvala - Mint Your Freelance Experience</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            color: white;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #8b5cf6;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #8b5cf6;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background: #8b5cf6;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0 2rem;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #8b5cf6, #a855f7, #c084fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                filter: brightness(1);
+            }
+
+            to {
+                filter: brightness(1.2);
+            }
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .hero-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 2rem;
+        }
+
+        .button-wrapper {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            align-items: flex-start;
+            flex-direction: column;
+        }
+
+        .start-button {
+            display: inline-block;
+            background: linear-gradient(45deg, #8b5cf6, #a855f7);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            margin-top: 1rem;
+            margin-left: 2rem;
+            position: relative;
+        }
+
+        .start-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(139, 92, 246, 0.3);
+        }
+
+        .start-button::before {
+            content: '';
+            position: relative;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .start-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(45deg, #8b5cf6, #a855f7);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(139, 92, 246, 0.3);
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 5rem 2rem;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #8b5cf6;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(139, 92, 246, 0.2);
+            border-color: #8b5cf6;
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #8b5cf6;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #a855f7;
+        }
+
+        .feature-card p {
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        /* Problem Section */
+        .problem {
+            padding: 5rem 2rem;
+            text-align: center;
+        }
+
+        .problem-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .problem h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: #ef4444;
+        }
+
+        .problem-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .problem-item {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: 10px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .problem-item:hover {
+            transform: scale(1.05);
+            border-color: #ef4444;
+        }
+
+        /* Solution Section */
+        .solution {
+            padding: 5rem 2rem;
+            background: rgba(139, 92, 246, 0.05);
+        }
+
+        .solution-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .step {
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .step:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(139, 92, 246, 0.2);
+        }
+
+        .step-number {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #8b5cf6;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .step h3 {
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+            color: #a855f7;
+        }
+
+        /* NFT Showcase */
+        .nft-showcase {
+            padding: 5rem 2rem;
+            text-align: center;
+        }
+
+        .nft-card {
+            background: linear-gradient(45deg, #8b5cf6, #a855f7);
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 300px;
+            margin: 2rem auto;
+            transform: perspective(1000px) rotateY(0deg);
+            transition: all 0.5s ease;
+            cursor: pointer;
+        }
+
+        .nft-card:hover {
+            transform: perspective(1000px) rotateY(10deg) translateY(-10px);
+            box-shadow: 0 20px 40px rgba(139, 92, 246, 0.4);
+        }
+
+        .nft-card h3 {
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .nft-details {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 1rem;
+            margin-top: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            background: #0a0a0a;
+            padding: 3rem 2rem 1rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-links a {
+            color: #8b5cf6;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #a855f7;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .solution-steps {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        /* Floating particles effect */
+        .particle {
+            position: absolute;
+            background: #8b5cf6;
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-20px) rotate(180deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="logo">GIGvala</a>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="userlogin.html">Get Started</a></li>
+                <li><a href="#how-it-works">How It Works</a></li>
+                <li><a href="business_model.html">Business Model</a></li>
+                <li><a href="#about">About Us</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- // get started button -->
+
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content fade-in">
+            <h1>Mint Your Freelance Experience</h1>
+            <p>“Do the work. Let Gigvala flex it.”</p>
+            <div class="button-wrapper">
+                <a href="#how-it-works" class="cta-button">Discover How It Works</a>
+                <a href="userlogin.html" class="start-button">Get Started</a>
+            </div>
+
+
+        </div>
+
+        <!-- Floating particles -->
+        <div class="particle" style="top: 20%; left: 10%; width: 4px; height: 4px; animation-delay: 0s;"></div>
+        <div class="particle" style="top: 60%; left: 90%; width: 6px; height: 6px; animation-delay: 1s;"></div>
+        <div class="particle" style="top: 40%; left: 20%; width: 3px; height: 3px; animation-delay: 2s;"></div>
+        <div class="particle" style="top: 80%; left: 80%; width: 5px; height: 5px; animation-delay: 3s;"></div>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="problem">
+        <div class="container">
+            <h2>The Freelancing Trust Problem</h2>
+            <p>Current freelancing platforms have serious trust issues that hurt both freelancers and clients</p>
+            <div class="problem-list">
+                <div class="problem-item">
+                    <h3>❌ Fake Portfolios</h3>
+                    <p>Freelancers can easily fake their work history and skills</p>
+                </div>
+                <div class="problem-item">
+                    <h3>❌ No Skill Verification</h3>
+                    <p>Clients can't verify if freelancers actually have the skills they claim</p>
+                </div>
+                <div class="problem-item">
+                    <h3>❌ Hiring Risks</h3>
+                    <p>Clients waste time and money on unqualified freelancers</p>
+                </div>
+                <div class="problem-item">
+                    <h3>❌ No Proof of Work</h3>
+                    <p>Completed projects have no verifiable, permanent record</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section class="solution" id="how-it-works">
+        <div class="container">
+            <h2 class="section-title">How GIGvala Solves This</h2>
+            <p style="text-align: center; font-size: 1.1rem; margin-bottom: 2rem;">
+                Our revolutionary platform combines skill verification with NFT technology to create trust
+            </p>
+            <div class="solution-steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Search & Apply</h3>
+                    <p>Freelancers search for projects and submit applications</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Skill Challenge</h3>
+                    <p>Take a recorded 30-40 minute skill test with camera on</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Client Approval</h3>
+                    <p>Client reviews the test and approves qualified freelancers</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3>Complete Project</h3>
+                    <p>Work on the assigned project and submit deliverables</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">5</div>
+                    <h3>Approve NFT</h3>
+                    <p>Receive a unique NFT as proof of completed work</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <h2 class="section-title">Why Choose GIGvala?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Verified Skills</h3>
+                    <p>Recorded skill challenges ensure freelancers have real capabilities before hiring</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🏆</div>
+                    <h3>NFT Proof of Work</h3>
+                    <p>Immutable blockchain certificates that prove completed projects and build reputation</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🛡️</div>
+                    <h3>Trust & Transparency</h3>
+                    <p>Complete transparency in the hiring process reduces risks for both parties</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💎</div>
+                    <h3>Digital Portfolio</h3>
+                    <p>Build a valuable collection of work experience NFTs that showcase your expertise</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Quality Assurance</h3>
+                    <p>Skill-based challenges ensure only qualified freelancers get hired</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🚀</div>
+                    <h3>Career Growth</h3>
+                    <p>NFTs serve as permanent credentials that grow in value with your expertise</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NFT Showcase -->
+    <section class="nft-showcase">
+        <div class="container">
+            <h2 class="section-title">Your Work, Your NFT</h2>
+            <p>Each completed project becomes a unique, verifiable NFT certificate</p>
+            <div class="nft-card" onclick="rotateCard(this)">
+                <h3>Full Stack Developer</h3>
+                <div class="nft-details">
+                    <p><strong>Project:</strong> E-commerce Website</p>
+                    <p><strong>Client:</strong> TechCorp Ltd</p>
+                    <p><strong>Duration:</strong> 3 weeks</p>
+                    <p><strong>Skills:</strong> React, Node.js, MongoDB</p>
+                    <p><strong>Rating:</strong> ⭐⭐⭐⭐⭐</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="#privacy">Privacy Policy</a>
+                <a href="#terms">Terms of Service</a>
+                <a href="#contact">Contact Us</a>
+                <a href="#support">Support</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // NFT card rotation
+        function rotateCard(card) {
+            card.style.transform = card.style.transform === 'perspective(1000px) rotateY(180deg)'
+                ? 'perspective(1000px) rotateY(0deg)'
+                : 'perspective(1000px) rotateY(180deg)';
+        }
+
+        // Add animation to elements on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all feature cards and sections
+        document.querySelectorAll('.feature-card, .step, .problem-item').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Add floating animation to hero elements
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero-content');
+            if (hero) {
+                hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+            }
+        });
+    </script>
+</body>
+
+</html>
